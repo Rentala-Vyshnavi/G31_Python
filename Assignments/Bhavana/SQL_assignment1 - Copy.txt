@@ -1,0 +1,152 @@
+/*Q1*/
+select count(*) from emp;
+
+/*Q2*/
+select count(*) from dept;
+
+/*Q3*/
+select* from emp;
+
+/*Q4*/
+select* from dept;
+
+/*Q5*/
+select sum(sal) from emp;
+
+/*Q6*/
+select sum(comm) from emp;
+
+/*Q7*/
+select job,comm
+from emp
+order by comm;
+
+/*Q8*/
+select sysdate from dual;
+
+/*Q9*/
+select avg(sal) from emp;
+
+/*Q10*/
+select deptno,count(*)
+from emp
+group by deptno
+    order by deptno;
+
+/*Q11*/
+select deptno,sum(sal)
+from emp
+group by deptno;
+
+/*Q12*/
+select job,count(*)
+from emp
+group by job;
+
+/*Q13*/
+select job,avg(sal)
+from emp
+group by job;
+
+/*Q14*/
+select hiredate,job
+from emp;
+--or
+select hiredate,to_char(hiredate,'YYYY'),to_char(hiredate,'MON'),to_char(hiredate,'DD'),job 
+from emp;
+
+/*Q15*/
+select*
+from emp
+    order by deptno;
+--or
+select ename,e.empno,e.deptno,d.deptno,d.dname
+from emp e
+full outer join dept d on e.deptno=d.deptno
+    order by e.deptno,d.deptno;
+
+/*Q16*/
+select*
+from emp
+    order by job;
+
+/*Q17*/
+select*
+from emp
+order by sal desc;
+
+/*Q18*/
+select *
+from emp
+order by deptno,sal desc;
+
+/*Q19*/
+select ename,length(ename)
+from emp
+where length(ename)=6;
+
+/*Q20*/
+select max(sal),min(sal) from emp;
+
+/*Q21*/
+select max(sal),min(sal),avg(sal),sum(sal),deptno
+    from emp group by deptno;
+
+/*Q22*/
+select*
+from emp
+order by hiredate;
+
+/*Q23*/
+select hiredate,ename
+from emp
+where hiredate=(select max(hiredate) from emp);
+
+/*Q24*/
+select hiredate,ename
+from emp
+where hiredate=(select min(hiredate) from emp);
+
+/*Q25*/
+select*
+from emp
+order by to_char(hiredate,'YYYY') desc,deptno;
+--or
+select d.dname,to_char(hiredate,'YYYY')
+from emp e
+left join dept d on e.deptno=d.deptno
+order by to_char(hiredate,'YYYY') desc,d.dname;
+
+/8Q26*/
+select*
+from emp
+where sal>=(select avg(sal) from emp) order by sal;
+
+/*Q27*/
+select*
+from emp
+where sal<=(select avg(sal) from emp)
+    order by sal;
+
+/*Q28*/
+select*
+from emp
+where sal>2000 and sal<4000;
+--or
+select*
+from emp
+where sal between 2000 and 4000;
+
+/*Q29*/
+select ename,sal
+from emp
+where sal=(select max(sal) from emp)
+UNION ALL
+select ename,sal
+from emp e
+where sal=(select min(sal) from emp);
+
+/*Q30*/
+select to_char(hiredate,'MON') as number_of_members_joined,count(*) as number_of_gifts
+from emp 
+group by  to_char(hiredate,'MON') order by count(*) 
